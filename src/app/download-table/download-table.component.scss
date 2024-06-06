@@ -1,0 +1,213 @@
+$light-grey: #E5E5E5;
+$hover-grey: #F5F5F5;
+$selected-grey: #EEEEEE;
+$icon-blue: #4B95E0;
+$icon-green: #86CE3C;
+$black: #000000;
+
+.container {
+  border: 1px solid $light-grey;
+
+  .component-header {
+    display: flex;
+    border-bottom: 1px solid $light-grey;
+    padding: 12px;
+    font-size: 20px;
+
+    .checkbox-header-column {
+      width: 18px;
+      margin-right: 16px;
+    }
+
+    .selected-label {
+      width: 150px;
+    }
+
+    .download-button {
+      width: 200px;
+      cursor: pointer;
+    }
+  }
+
+  .file-table {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+
+    .table-header {
+      display: flex;
+      align-items: center;
+      height: 44px;
+    }
+
+    .table-row {
+      display: flex;
+      width: 100%;
+      height: 36px;
+      border-top: 1px solid $light-grey;
+      align-items: center;
+      font-size: 14px;
+
+      &:hover {
+        background-color: $hover-grey;
+      }
+
+      &.selected-row {
+        background-color: $selected-grey;
+      }
+    }
+
+    .checkbox-column {
+      min-width: 50px;
+      padding-top: 4px;
+      padding-left: 0px;
+
+      i {
+        margin-left: 12px;
+        font-size: 20px;
+      }
+    }
+
+    .name-column {
+      min-width: 160px;
+    }
+
+    .device-column {
+      min-width: 160px;
+    }
+
+    .path-column {
+      min-width: 160px;
+      width: 100%;
+    }
+
+    .status-column {
+      position: relative;
+      min-width: 100px;
+      padding-left: 24px;
+
+      .available-icon {
+        position: absolute;
+        left: 4px;
+        color: $icon-green;
+      }
+    }
+  }
+
+  &.narrow-styles {
+    .file-table {
+      .name-column {
+        min-width: 80px;
+      }
+
+      .device-column {
+        min-width: 80px;
+      }
+
+      .path-column {
+        min-width: 80px;
+      }
+
+      .status-column {
+        min-width: 68px;
+      }
+    }
+  }
+
+  .empty-state-text {
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icon-checkbox {
+    color: $icon-blue;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    .modal-background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: $black;
+      opacity: .4;
+    }
+
+    .download-modal {
+      position: fixed;
+      width: 600px;
+      height: 400px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $light-grey;
+      border-radius: 20px;
+      word-wrap: break-word;
+
+      .modal-header {
+        text-align: center;
+      }
+
+      .close-button {
+        position: absolute;
+        right: 24px;
+        top: 16px;
+        font-size: 32px;
+        cursor: pointer;
+      }
+
+      .download-modal-row {
+        padding: 0 60px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    .file-table {
+      .name-column {
+        min-width: 80px;
+      }
+
+      .device-column {
+        min-width: 80px;
+      }
+
+      .path-column {
+        min-width: 80px;
+      }
+
+      .status-column {
+        min-width: 68px;
+      }
+    }
+
+    .modal-container {
+      .download-modal {
+        width: 95%;
+
+        .download-modal-row {
+          padding: 0 12px;
+        }
+      }
+    }
+  }
+}

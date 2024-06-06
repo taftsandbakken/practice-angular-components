@@ -1,0 +1,95 @@
+<div
+  #tableContainer
+  class="container"
+  [class.narrow-styles]="useNarrowStyles"
+>
+  <div class="component-header">
+    <div class="checkbox-header-column" (click)="selectAllFiles()">
+      @if (selectedFileIds.size === 0) {
+        <i class="fa fa-square-o clickable"></i>
+      }
+      @else if (selectedFileIds.size === files.length) {
+        <i class="fa fa-check-square icon-checkbox clickable"></i>
+      }
+      @else {
+        <i class="fa fa-minus-square icon-checkbox clickable"></i>
+      }
+    </div>
+    <span class="selected-label">
+      @if (selectedFileIds.size === 0) {
+        None Selected
+      }
+      @else {
+        Selected {{selectedFileIds.size}}
+      }
+    </span>
+    <div class="download-button" (click)="showDownloadModal = true">
+      <i class="fa fa-download"></i>
+        Download Selected
+    </div>
+  </div>
+  <table class="file-table ellipsis">
+    <tr class="table-header">
+      <td class="checkbox-column"></td>
+      <td class="name-column">Name</td>
+      <td class="device-column">Device</td>
+      <td class="path-column">Path</td>
+      <td class="status-column">Status</td>
+    </tr>
+    @for (file of files; track file; let i = $index) {
+      <tr
+        class="table-row clickable"
+        [class.selected-row]="isFileSelected(i)"
+        (click)="onFileSelected(i)"
+      >
+        <td class="checkbox-column">
+          @if (isFileSelected(i)) {
+            <i class="fa fa-check-square icon-checkbox"></i>
+          }
+          @else {
+            <i class="fa fa-square-o"></i>
+          }
+        </td>
+        <td class="name-column ellipsis" [title]="file.name">
+          {{file.name}}
+        </td>
+        <td class="device-column ellipsis" [title]="file.device">
+          {{file.device}}
+        </td>
+        <td class="path-column ellipsis" [title]="file.path">
+          {{file.path}}
+        </td>
+        <td class="status-column">
+          @if (file.status === AVAILABLE_STATUS) {
+            <i class="fa fa-circle available-icon"></i>
+          }
+          {{file.status | titlecase}}
+        </td>
+      </tr>
+    }
+    @empty {
+      <div class="table-row empty-state-text">
+        No files found
+      </div>
+    }
+  </table>
+  @if (showDownloadModal) {
+    <div class="modal-container">
+      <div class="modal-background" (click)="showDownloadModal = false"></div>
+      <div class="download-modal">
+        <h2 class="modal-header">
+          Files Downloading
+        </h2>
+        <i class="fa fa-close close-button" (click)="showDownloadModal = false"></i>
+        @for (file of getSelectedAvailableFiles(); track file) {
+          <div class="download-modal-row">
+            {{file.device}} - {{file.path}}
+          </div>
+        }
+        @empty {
+          <div class="empty-state-text">No available files selected</div>
+        }
+      </div>
+    </div>
+  }
+</div>
